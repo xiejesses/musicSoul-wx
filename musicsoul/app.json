@@ -1,0 +1,13 @@
+{
+  "cloud": true,
+  "pages": [
+    "pages/index/index"
+  ],
+  "window": {
+    "backgroundColor": "#fff",
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "音之魂",
+    "navigationBarTextStyle": "black"
+  }
+}
