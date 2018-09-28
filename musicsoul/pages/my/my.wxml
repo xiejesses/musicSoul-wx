@@ -1,0 +1,43 @@
+<view class="container">
+    <login-btn wx:if="{{!hasUserInfo}}" open-type="getUserInfo" class="avatar-container" bind:getuserinfo="onGetUserInfo">
+        <image slot="img" class="user-avatar" src="/images/user-unlogin.png" />
+    </login-btn>
+    <view class="user-profile">
+        <view class="username">
+            <open-data wx:if="{{hasUserInfo}}" type="userNickName"></open-data>
+        </view>
+        <view class="avatar-container">
+            <image src="{{userInfo.avatarUrl}}" wx:if="{{hasUserInfo}}" class="user-avatar" />
+        </view>
+        <view class="create-album"><image class="create" src="/images/icon-create.svg"/></view>
+    </view>
+    <view class="album-lists-container">
+        <view class="album-lists my-create">
+            <view class="title">我创建的(3)</view>
+            <view class="albumlist">
+                <view><image  class="album-pic" src="http://p1.music.126.net/QRB50I-VcDoR_T3aOXV5UQ==/109951163393595700.jpg" /></view>
+                <view class="album">
+                    <view class="albumname">这是一首简单的歌</view>
+                    <view >1 首</view>
+                </view>
+            </view>
+            <view class="albumlist">
+                <view><image  class="album-pic" src="http://p1.music.126.net/1Wy_tqpQLSdTmoq4wKYWTg==/2533274790578955.jpg" /></view>
+                <view class="album">
+                    <view class="albumname">奋斗一生</view>
+                    <view >2 首</view>
+                </view>
+            </view>
+            <view class="albumlist">
+                <view><image  class="album-pic" src="http://p1.music.126.net/_FUMc6PuSTlrVDX4LOCpxQ==/6635552674625110.jpg" /></view>
+                <view class="album">
+                    <view class="albumname">Give Me That Love</view>
+                    <view >5 首</view>
+                </view>
+            </view>
+        </view>
+        <!-- <view class="album-lists">
+            <text class="text">我收藏的(2)</text>
+        </view> -->
+    </view>
+</view>

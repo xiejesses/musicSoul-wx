@@ -1,13 +1,14 @@
 {
   "cloud": true,
   "pages": [
-    "pages/index/index"
+    "pages/index/index",
+    "pages/my/my"
   ],
   "window": {
     "backgroundColor": "#fff",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "音之魂",
+    "navigationBarTitleText": "知音",
     "navigationBarTextStyle": "black"
   }
 }
