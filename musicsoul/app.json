@@ -2,35 +2,29 @@
   "cloud": true,
   "pages": [
     "pages/index/index",
-    "pages/my/my",
-    "pages/search/search"
+    "pages/my/my"
   ],
   "window": {
     "backgroundColor": "#fff",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "知音",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "black",
+    "navigationStyle": "custom"
   },
   "tabBar": {
     "list": [{
       "pagePath": "pages/index/index",
       "iconPath": "images/music.png",
-      "selectedIconPath": "images/music_selected.png",
-      "text": "首页"
-    }, {
-      "pagePath": "pages/search/search",
-      "iconPath": "images/search_unselected.png",
-      "selectedIconPath": "images/search_selected.png",
-      "text": "搜索"
+      "selectedIconPath": "images/music_selected.png"
     },{
       "pagePath": "pages/my/my",
       "iconPath": "images/my.png",
-      "selectedIconPath": "images/my_selected.png",
-      "text": "中心"
+      "selectedIconPath": "images/my_selected.png"
     }],
     "selectedColor": "#000000",
     "backgroundColor": "#fff",
-    "color": "#c7c7c7"
+    "color": "#c7c7c7",
+    "borderStyle":"white"
   }
 }

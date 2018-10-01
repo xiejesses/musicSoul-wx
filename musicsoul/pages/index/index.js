@@ -10,6 +10,11 @@ Page({
   },
 
   onLoad: function() {
+
+    this.setData({
+      navHeight: app.globalData.navHeight
+    })
+    console.log(this.data.navHeight);
     // 获取用户信息
     wx.getSetting({
       success: res => {

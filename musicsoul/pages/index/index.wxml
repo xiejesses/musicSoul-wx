@@ -1,4 +1,11 @@
 <!--index.wxml-->
-<view class="container">
+<view class="header-container" style="height:{{navHeight}}px">
+    <view class='box' style="height:{{navHeight/2}}px;margin-top:{{navHeight/3-3}}px" bind:tap="onActivateSearch">
+      <image src="/images/search.png" />
+      <text>搜索音乐</text>
+  </view> 
+</view>
+<view class="album-container" style="margin-top:{{navHeight+10}}px">
   首页
 </view>
+<!-- </view> -->
