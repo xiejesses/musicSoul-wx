@@ -1,0 +1,49 @@
+<view class="header-container" style="height:{{navHeight}}px">
+    <view class="header-nav" bind:tap="goback">
+        <view><image src="/images/left.png" /></view>
+        <!-- <view style="height:{{navHeight/2}}px;">Home</view> -->
+    </view>
+</view>
+<view class="container" style="margin-top:{{navHeight}}px">
+    <view class="top-container" style="height:{{screenHeight/2+50}}px">
+        <view class="song-profile">
+            <!-- <view class="songname">有梦不难</view>
+            <view class="songauthor">林俊杰</view> -->
+            <view class="songname">{{songdetail.name}}</view>
+            <view class="songauthor">{{songdetail.ar[0].name}}</view>
+        </view>
+        <view class="song-wrap">
+            <view class="prev"><image src="/images/prev.png" /></view>
+            <view class="song-pic"><image src="{{songdetail.al.picUrl}}" /></view>
+            <!-- <view class="song-pic"><image src="http://p1.music.126.net/em-m2wWjDKfGjwXDwnNcmg==/1724034232372869.jpg" /></view> -->
+            <view class="next"><image src="/images/next.png" /></view>
+        </view>
+        
+    </view>
+    <view class="bottom-container" style="height:{{screenHeight/2-50-navHeight}}px">
+    <!-- <view class="addsong-wrap"> -->
+        <view class="addsong">
+            <image src="/images/love_1.png" />
+        </view>
+    <!-- </view> -->
+        <!-- <view class="control"> -->
+            <view class="progress-wrap">
+                <view class="begin">{{currentTime}}</view>
+                <view class="progress flex1">
+                <view class="progress-bg"></view>
+                <view class="progress-bar" style="width: {{progressWidth}}%;">
+                    <view class="control" bind:touchstart="touchStartProgress" bind:touchmove="touchMoveProgress" bind:touchend="touchEndProgress"></view>
+                </view>
+                </view>
+                <view class="end">{{duration}}</view>
+            </view>
+        <!-- </view> -->
+        <view class="play-button" bind:tap="changePlayerStatus">
+            <view >
+                <image src="{{play_status?pauseUrl:playUrl}}" />
+                <!-- <image src="/images/play.png" /> -->
+                <!-- <image src="/images/pause.png" /> -->
+            </view>
+        </view>
+    </view>
+</view>

@@ -11,12 +11,14 @@ App({
     }
 
     this.globalData = {}
-
+    this.globalData.backgroundPlayer = wx.getBackgroundAudioManager();
     // 获取手机系统信息
   wx.getSystemInfo({
     success: res => {
       //导航高度
       this.globalData.navHeight = res.statusBarHeight + 46;
+      this.globalData.winHeight = res.windowHeight;
+      this.globalData.screenHeight = res.screenHeight;
     }, fail(err) {
       console.log(err);
     }

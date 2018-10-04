@@ -2,8 +2,11 @@
   "cloud": true,
   "pages": [
     "pages/index/index",
-    "pages/my/my"
+    "pages/my/my",
+    "pages/search/search",
+    "pages/play/play"
   ],
+  "requiredBackgroundModes": ["audio"],
   "window": {
     "backgroundColor": "#fff",
     "backgroundTextStyle": "light",
@@ -13,18 +16,21 @@
     "navigationStyle": "custom"
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/index/index",
-      "iconPath": "images/music.png",
-      "selectedIconPath": "images/music_selected.png"
-    },{
-      "pagePath": "pages/my/my",
-      "iconPath": "images/my.png",
-      "selectedIconPath": "images/my_selected.png"
-    }],
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "images/music.png",
+        "selectedIconPath": "images/music_selected.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "iconPath": "images/my.png",
+        "selectedIconPath": "images/my_selected.png"
+      }
+    ],
     "selectedColor": "#000000",
     "backgroundColor": "#fff",
     "color": "#c7c7c7",
-    "borderStyle":"white"
+    "borderStyle": "white"
   }
 }

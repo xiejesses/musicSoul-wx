@@ -64,4 +64,10 @@ Page({
     })
   },
 
+  clickSearch: function() {
+    wx.navigateTo({
+      url:"/pages/search/search"
+    })
+  }
+
 })

@@ -1,18 +1,27 @@
 // musicsoul/pages/search/search.js
+const app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-
+    keyword:'',
+    songlists:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    this.setData({
+      navHeight: app.globalData.navHeight
+    })
+    // console.log(options)
+    // this.setData({
+    //   keyword:options.value
+    // })
+    // this.onConfirm()
   },
 
   /**
@@ -62,5 +71,45 @@ Page({
    */
   onShareAppMessage: function () {
 
+  },
+
+  /**
+   * 按确认发起搜索
+   */
+  onConfirm: function (event) {
+    let keyword = event.detail.value;
+
+    // let keyword = this.data.keyword
+
+    wx.cloud.callFunction({
+      name: 'searchsong',
+      data: {
+        keyword:keyword,
+        action:'search'
+      },
+      complete: res => {
+        console.log(res.result.result)
+        this.setData({
+          songlists:res.result.result.songs
+        })
+      },
+    })
+  },
+  onDelete: function (event) {
+    console.log(event)
+    this.setData({
+      songlists:[],
+      keyword:''
+    })
+  },
+  onCancel: function () {
+    this.setData({
+      songlists:[],
+      keyword:''
+    })
+    wx.navigateBack({
+      delta: 1
+    });
   }
+
 })

@@ -1,20 +1,36 @@
 <!--components/search/search-cmp.wxml-->
-<view class="container">
-<view wx:if="{{!searchPanel}}" class="container">
-   <view class="header">
-     <view class='box' bind:tap="onActivateSearch">
-      <image src="/images/icon/search.png" />
-      <text>搜索书籍</text>
-    </view> 
-  </view> 
-</view>
-
+<view class="header-container" style="height:{{navHeight}}px"></view>
+<view class="container" style="margin-top:{{navHeight}}px">
   <view class="header">
     <view class="search-container">
       <image class="icon" src="/images/search.png" />
-      <input placeholder-class='in-bar' placeholder='歌曲名' class='bar' bind:confirm="onConfirm" value="{{q}}" auto-focus="true" />
+      <input placeholder-class='in-bar' placeholder='歌曲名' class='bar' bind:confirm="onConfirm" value="{{keyword}}"
+        auto-focus="true" />
       <image bind:tap="onDelete" class="cancel-img" src="/images/cancel.png" />
     </view>
     <view class='cancel' bind:tap="onCancel">取消</view>
+  </view>
+  <!-- <view>
+    <view class="songs" v-for="item in songSearchs" :key="item.id">
+      <a :href="songPage+item.id">
+        <li class="each-song">
+          <p>{{item.name}}</p>
+          <p>{{item.artists[0].name}}</p>
+        </li>
+      </a>
+    </view>
+  </view> -->
+  <view class="songs-container" wx:for="{{songlists}}" wx:for-item="song" wx:key="id">
+    <navigator open-type="navigate" url="/pages/play/play?id={{song.id}}">
+    <view class="songs">
+      <view class="each-song">
+        <view >{{song.name}}</view>
+        <view class="songauthor">{{song.artists[0].name}}</view>
+      </view>
+      <view>
+        <image class="arrowright" src="/images/arrow-right.png" />
+      </view>
+    </view>
+    </navigator>
   </view>
 </view>
