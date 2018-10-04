@@ -8,6 +8,7 @@ Page({
   data: {
     id:'',
     songdetail:{},
+    pickerAlbums:['+新建','test'],
     currentTime: '00:00',
     duration: '00:00',
     progressWidth: 0,
@@ -18,6 +19,7 @@ Page({
     playUrl:'/images/play.png',
     pauseUrl:'/images/pause.png',
     songSrc:'http://music.163.com/song/media/outer/url?id=',
+    hasUserInfo:false,
   },
 
   /**
@@ -27,26 +29,27 @@ Page({
     this.setData({
       id:options.id,
       navHeight: app.globalData.navHeight,
-      screenHeight:app.globalData.screenHeight
+      screenHeight:app.globalData.screenHeight,
+      hasUserInfo:app.globalData.hasUserInfo
     })
     console.log(options)
     console.log('可使用窗口高度' + app.globalData.winHeight)
     console.log('屏幕高度' + app.globalData.screenHeight)
     
 
-    wx.cloud.callFunction({
-      name: 'searchsong',
-      data: {
-        id:options.id,
-        action:'getdetail'
-      },
-      complete: res => {
-        console.log(res)
-        this.setData({
-          songdetail:res.result.songs[0]
-        })
-      },
-    })
+    // wx.cloud.callFunction({
+    //   name: 'searchsong',
+    //   data: {
+    //     id:options.id,
+    //     action:'getdetail'
+    //   },
+    //   complete: res => {
+    //     console.log(res)
+    //     this.setData({
+    //       songdetail:res.result.songs[0]
+    //     })
+    //   },
+    // })
   },
 
   /**
@@ -78,7 +81,7 @@ Page({
         }
       }
     });
-    this.backgroundPlayer = app.globalData.backgroundPlayer;
+    // this.backgroundPlayer = app.globalData.backgroundPlayer;
 
     const currentPlayerId = this.data.id;
     // const currentPlayerId = wx.getStorageSync('currentPlayerId');
@@ -369,5 +372,64 @@ Page({
     wx.navigateBack({
       delta: 1
     });
-  }
+  },
+  bindPickerChange: function(event) {
+    console.log('picker发送选择改变，携带值为', this.data.pickerAlbums[event.detail.value])
+
+    // if (!app.globalData.hasUserInfo) {
+    //   console.log("还没有登录呢")
+    // } else if (this.data.pickerAlbums[event.detail.value] === '+新建') {
+    //   wx.navigateTo({
+    //     url: '/pages/create/create',
+    //     success: (result)=>{
+          
+    //     },
+    //     fail: ()=>{},
+    //     complete: ()=>{}
+    //   });
+    // }
+
+    if (this.data.pickerAlbums[event.detail.value] === '+新建') {
+      wx.navigateTo({
+        url: '/pages/create/create',
+        success: (result)=>{
+          
+        },
+        fail: ()=>{},
+        complete: ()=>{}
+      });
+    }
+  },
+  onGetUserInfo: function(event) {
+    let userInfo = event.detail.userInfo
+    if (userInfo) {
+      this.setData({
+        hasUserInfo: true,
+        // userInfo: userInfo
+      })
+      app.globalData.hasUserInfo = true,
+      app.globalData.userInfo = userInfo
+    }
+  },
+  // checklogin: function() {
+  //   console.log('还没登录')
+  //   wx.showModal({
+  //     title: '请先登录！',
+  //     // content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
+  //     confirmText: "登录",
+  //     cancelText: "算了",
+  //     success: function (res) {
+  //       // console.log(res);
+  //       if (res.confirm) {
+  //         console.log('点了去登录');
+  //            wx.navigateTo({
+  //             url: '/pages/index/main?activeIndex=1',
+  //           })
+  //           self.getalbums();
+  //       } else {
+  //         console.log('点了算了')
+  //       }
+  //     }
+  //   });
+  // }
 })

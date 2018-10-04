@@ -43,12 +43,6 @@
 					"query": ""
 				},
 				{
-					"id": -1,
-					"name": "my1",
-					"pathName": "pages/my1/my",
-					"query": ""
-				},
-				{
 					"id": 3,
 					"name": "search",
 					"pathName": "pages/search/search",
@@ -59,6 +53,12 @@
 					"name": "play",
 					"pathName": "pages/play/play",
 					"query": "id=25643258"
+				},
+				{
+					"id": 4,
+					"name": "create",
+					"pathName": "pages/create/create",
+					"query": ""
 				}
 			]
 		}

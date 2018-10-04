@@ -4,9 +4,12 @@
     "pages/index/index",
     "pages/my/my",
     "pages/search/search",
-    "pages/play/play"
+    "pages/play/play",
+    "pages/create/create"
   ],
-  "requiredBackgroundModes": ["audio"],
+  "requiredBackgroundModes": [
+    "audio"
+  ],
   "window": {
     "backgroundColor": "#fff",
     "backgroundTextStyle": "light",

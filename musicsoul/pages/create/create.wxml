@@ -1,0 +1,28 @@
+<view class="header-container" style="height:{{navHeight}}px"></view>
+<view class="container">
+    <view class="submit">
+      <view class="intro">
+        <view style="font-weight:bold">说明：</view>
+        <view>每个专辑最多 10 首歌</view>
+        <view>一旦创建成功即表示分享到首页</view>
+      </view>
+      <view class="user-input">
+        <!-- <form @submit="formSubmit" @reset="formReset"> -->
+          <view>
+            <input value="{{albumName}}" type="text" name="albumName" placeholder="专辑名" />
+          </view>
+          <view>
+            <textarea value="{{albumDes}}" name="albumDes" placeholder="感想" />
+          </view>
+          <view class="action">
+            <view>
+              <button type="primary" bind:tap="onConfirm" form-type="submit" style="margin-top:20px">创建</button>
+            </view>
+            <view>
+              <button bind:tap="onCancel">取消</button>
+            </view>
+          </view>
+        <!-- </form> -->
+      </view>
+    </view>
+  </view>

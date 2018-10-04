@@ -1,6 +1,7 @@
 //app.js
 App({
   onLaunch: function () {
+    this.globalData = {}
     
     if (!wx.cloud) {
       console.error('请使用 2.2.3 或以上的基础库以使用云能力')
@@ -10,7 +11,6 @@ App({
       })
     }
 
-    this.globalData = {}
     this.globalData.backgroundPlayer = wx.getBackgroundAudioManager();
     // 获取手机系统信息
   wx.getSystemInfo({
@@ -23,6 +23,31 @@ App({
       console.log(err);
     }
   })
+
+    wx.getSetting({
+      success: (data) => {
+        if (data.authSetting['scope.userInfo']) {
+          wx.getUserInfo({
+            success: (data) => {
+              this.globalData.hasUserInfo = true,
+              this.globalData.userInfo = data.userInfo
+              // this.setData({
+              //   hasUserInfo: true,
+              //   userInfo: data.userInfo
+              // })
+            }
+          })
+        } else {
+          // this.setData({
+          //   hasUserInfo: false
+          // })
+          this.globalData.hasUserInfo = false,
+          this.globalData.userInfo = null
+        }
+      }
+    })
+
+
   },
   
 })

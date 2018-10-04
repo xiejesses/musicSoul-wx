@@ -22,9 +22,16 @@
     </view>
     <view class="bottom-container" style="height:{{screenHeight/2-50-navHeight}}px">
     <!-- <view class="addsong-wrap"> -->
-        <view class="addsong">
-            <image src="/images/love_1.png" />
+        <picker wx:if="{{hasUserInfo}}" bindchange="bindPickerChange" value="{{indexPicker}}" range="{{pickerAlbums}}">
+            <view class="addsong">
+            <image src="/images/un_love.png" />
         </view>
+        </picker>
+        <!-- <view wx:else class="addsong" bind:tap="checklogin"><image src="/images/un_love.png" /></view> -->
+        <login-btn wx:else open-type="getUserInfo" class="addsong" bind:getuserinfo="onGetUserInfo">
+        <image slot="img" src="/images/un_love.png" />
+    </login-btn>
+        
     <!-- </view> -->
         <!-- <view class="control"> -->
             <view class="progress-wrap">

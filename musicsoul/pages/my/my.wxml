@@ -1,8 +1,7 @@
 <view class="header-container" style="height:{{navHeight}}px"></view>
 <view class="container" style="margin-top:{{navHeight+10}}px">
-    <login-btn wx:if="{{!hasUserInfo}}" open-type="getUserInfo" class="avatar-container" bind:getuserinfo="onGetUserInfo">
-        <image slot="img" class="user-avatar" src="/images/user-unlogin.png" />
-    </login-btn>
+    
+    <view wx:if="{{hasUserInfo}}">
     <view class="user-profile">
         <view class="username">
             <open-data wx:if="{{hasUserInfo}}" type="userNickName"></open-data>
@@ -10,7 +9,7 @@
         <view class="avatar-container">
             <image src="{{userInfo.avatarUrl}}" wx:if="{{hasUserInfo}}" class="user-avatar" />
         </view>
-        <view class="create-album"><image class="create" src="/images/icon-create.svg"/></view>
+        <!-- <view class="create-album"><image class="create" src="/images/icon-create.svg"/></view> -->
     </view>
     <view class="album-lists-container">
         <view class="album-lists my-create">
@@ -41,4 +40,9 @@
             <text class="text">我收藏的(2)</text>
         </view> -->
     </view>
+    </view>
+    <login-btn wx:else open-type="getUserInfo" class="" bind:getuserinfo="onGetUserInfo">
+        <image slot="img" class="user-avatar" src="/images/user-unlogin.png" />
+        <!-- <view slot="text">点击头像登录</view> -->
+    </login-btn>
 </view>

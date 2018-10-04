@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    hasUserInfo: true,
+    hasUserInfo: false,
     userInfo: null,
   },
 
@@ -15,7 +15,9 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      navHeight: app.globalData.navHeight
+      navHeight: app.globalData.navHeight,
+      hasUserInfo:app.globalData.hasUserInfo,
+      userInfo:app.globalData.userInfo
     })
   },
 
@@ -30,7 +32,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    this.hasGottenUserInfo()
+    // this.hasGottenUserInfo()
   },
 
   /**
@@ -68,26 +70,26 @@ Page({
 
   },
 
-  hasGottenUserInfo: function(){
-    wx.getSetting({
-      success: (data) => {
-        if (data.authSetting['scope.userInfo']) {
-          wx.getUserInfo({
-            success: (data) => {
-              this.setData({
-                hasUserInfo: true,
-                userInfo: data.userInfo
-              })
-            }
-          })
-        } else {
-          this.setData({
-            hasUserInfo: false
-          })
-        }
-      }
-    })
-  },
+  // hasGottenUserInfo: function(){
+  //   wx.getSetting({
+  //     success: (data) => {
+  //       if (data.authSetting['scope.userInfo']) {
+  //         wx.getUserInfo({
+  //           success: (data) => {
+  //             this.setData({
+  //               hasUserInfo: true,
+  //               userInfo: data.userInfo
+  //             })
+  //           }
+  //         })
+  //       } else {
+  //         this.setData({
+  //           hasUserInfo: false
+  //         })
+  //       }
+  //     }
+  //   })
+  // },
 
   onGetUserInfo: function(event) {
     let userInfo = event.detail.userInfo
@@ -96,6 +98,8 @@ Page({
         hasUserInfo: true,
         userInfo: userInfo
       })
+      app.globalData.hasUserInfo = true
+      app.globalData.userInfo = userInfo
     }
   },
 })
