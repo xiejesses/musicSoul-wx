@@ -1,11 +1,28 @@
 <!--index.wxml-->
 <view class="header-container" style="height:{{navHeight}}px">
-    <view class='box' style="height:{{navHeight/2}}px;margin-top:{{navHeight/3-3}}px" bind:tap="clickSearch">
-      <image src="/images/search.png" />
-      <text>搜索音乐</text>
-  </view> 
+  <view class='box' style="height:{{navHeight/2}}px;margin-top:{{navHeight/3-3}}px" bind:tap="clickSearch">
+    <image src="/images/search.png" />
+    <text>搜索音乐</text>
+  </view>
 </view>
-<view class="album-container" style="margin-top:{{navHeight+10}}px">
-  首页
+<view class="slogan">Talk Less, Show Me Your Songs</view>
+<view class="album-container" style="padding-top:{{navHeight-5}}px">
+  <view class="flex-container">
+    <view class="album-list" wx:for="{{Albums}}" wx:for-item="album" wx:key="_id">
+    <navigator open-type="navigate" url="/pages/album/album?id={{album._id}}">
+      <view class="flex-item">
+        <image src="{{album.albumPic}}" alt="" mode="aspectFill" />
+      </view>
+      <view class="album-content">
+        <view class="album-name">{{album.albumName}}</view>
+        <view class="describe">{{album.albumDes}}</view>
+      </view>
+    </navigator>
+    </view>
+  </view>
 </view>
+  <view class="loading-center"><initloading wx:if="{{loadingCenter}}" /></view>
+  <view class="loading"><loadingmore wx:if="{{loading}}" /></view>
+  <view class="nomore"><text wx:if="{{empty}}">Oops! no more</text></view>
+ 
 <!-- </view> -->

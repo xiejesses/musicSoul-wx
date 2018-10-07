@@ -7,7 +7,8 @@ Page({
    */
   data: {
     keyword:'',
-    songlists:[]
+    songlists:[],
+    loadingCenter:false,
   },
 
   /**
@@ -80,6 +81,10 @@ Page({
     let keyword = event.detail.value;
 
     // let keyword = this.data.keyword
+    this.setData({
+      songlists:[],
+      loadingCenter:true,
+    })
 
     wx.cloud.callFunction({
       name: 'searchsong',
@@ -89,6 +94,9 @@ Page({
       },
       complete: res => {
         console.log(res.result.result)
+        this.setData({
+          loadingCenter:false,
+        })
         this.setData({
           songlists:res.result.result.songs
         })

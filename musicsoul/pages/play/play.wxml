@@ -10,11 +10,11 @@
             <!-- <view class="songname">有梦不难</view>
             <view class="songauthor">林俊杰</view> -->
             <view class="songname">{{songdetail.name}}</view>
-            <view class="songauthor">{{songdetail.ar[0].name}}</view>
+            <view class="songauthor">{{songdetail.author}}</view>
         </view>
         <view class="song-wrap">
             <view class="prev"><image src="/images/prev.png" /></view>
-            <view class="song-pic"><image src="{{songdetail.al.picUrl}}" /></view>
+            <view class="song-pic"><image lazy-load="{{true}}" src="{{songdetail.picUrl}}" /></view>
             <!-- <view class="song-pic"><image src="http://p1.music.126.net/em-m2wWjDKfGjwXDwnNcmg==/1724034232372869.jpg" /></view> -->
             <view class="next"><image src="/images/next.png" /></view>
         </view>
@@ -22,7 +22,7 @@
     </view>
     <view class="bottom-container" style="height:{{screenHeight/2-50-navHeight}}px">
     <!-- <view class="addsong-wrap"> -->
-        <picker wx:if="{{hasUserInfo}}" bindchange="bindPickerChange" value="{{indexPicker}}" range="{{pickerAlbums}}">
+        <picker wx:if="{{hasUserInfo}}" bindchange="addsong" value="{{index}}" range="{{Albums}}" range-key="{{'albumName'}}">
             <view class="addsong">
             <image src="/images/un_love.png" />
         </view>

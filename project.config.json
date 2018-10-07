@@ -28,7 +28,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 4,
+			"current": 5,
 			"list": [
 				{
 					"id": -1,
@@ -58,6 +58,12 @@
 					"id": 4,
 					"name": "create",
 					"pathName": "pages/create/create",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "album",
+					"pathName": "pages/album/album",
 					"query": ""
 				}
 			]

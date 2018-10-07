@@ -1,0 +1,21 @@
+<!-- <view class="spinner">
+  <view class="double-bounce1"></view>
+  <view class="double-bounce2"></view>
+</view> -->
+<div class="loader">
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+  <text></text>
+</div>

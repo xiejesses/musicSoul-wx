@@ -3,64 +3,127 @@ const app = getApp()
 
 Page({
   data: {
-    userInfo: {},
-    logged: false,
-    takeSession: false,
-    requestResult: '',
+    Albums: [],
+    tmpAlbums:[],
+    page: 0,
+    more: true,
+    loading:false,
+    loadingCenter:false,
+    empty:false
   },
 
   onLoad: function() {
+    // var that = this;
 
     this.setData({
       navHeight: app.globalData.navHeight
     })
     console.log(this.data.navHeight);
-    // 获取用户信息
-    wx.getSetting({
-      success: res => {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
-          wx.getUserInfo({
-            success: res => {
-              this.setData({
-                avatarUrl: res.userInfo.avatarUrl,
-                userInfo: res.userInfo
-              })
-            }
+    this.setData({
+      loadingCenter:true
+    })
+    // new Promise((resolve, reject) => {
+    //   wx.cloud.callFunction({
+    //     name: 'login',
+    //     data: {
+    //       a: 1,
+    //       b: 2,
+    //     },
+    //     complete: res => {
+    //       resolve(res)
+    //     },
+    //   })
+    // }).then(res => {
+    //   console.log(res)
+    //   tmp = res;
+    // })
+    this.getindexalbums(true)
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    // this.getindexalbums(true)
+  },
+
+  getindexalbums(init) {
+
+    this.setData({
+      loading:true
+    })
+
+    new Promise((resolve, reject) => {
+        wx.cloud.callFunction({
+          name: 'album',
+          data: {
+            action: "getAllalbum",
+            page: this.data.page,
+          },
+          complete: res => {
+            resolve(res)
+          },
+        })
+      }).then(res => {
+        this.setData({
+          loading:false
+        })
+        console.log(res)
+        if (res.result.data.length < 3 && this.data.page > 0) {
+          this.data.more = false
+          this.setData({
+            empty:true
           })
         }
-      }
-    })
-  },
-
-  onGetUserInfo: function(e) {
-    if (!this.logged && e.detail.userInfo) {
-      this.setData({
-        logged: true,
-        avatarUrl: e.detail.userInfo.avatarUrl,
-        userInfo: e.detail.userInfo
+        // if (res.result.data.length < 3 ) {
+        //   this.setData({
+        //     empty:true
+        //   })
+        // }
+        if (init) {
+          this.setData({
+            Albums:res.result.data
+          })
+          this.setData({
+            loadingCenter:false
+          })
+        } else {
+          this.setData({
+            Albums:this.data.Albums.concat(res.result.data)
+          })
+        }
       })
+
+    
+
+  },
+  onReachBottom() {
+    if (!this.data.more) {
+      // 没有更多了
+      return false
     }
+    this.data.page = this.data.page + 1
+    this.getindexalbums(false)
   },
 
-  onGetOpenid: function() {
-    // 调用云函数
+  /**
+   * 页面相关事件处理函数--监听用户下拉动作
+   */
+  onPullDownRefresh: function () {
     wx.cloud.callFunction({
-      name: 'login',
-      data: {},
-      success: res => {
-        console.log('[云函数] [login] user openid: ', res.result.openid)
-        app.globalData.openid = res.result.openid
-        wx.navigateTo({
-          url: '../userConsole/userConsole',
+      name: 'album',
+      data: {
+        action: "getAllalbum",
+        page: 0
+      },
+      complete: res => {
+        wx.stopPullDownRefresh()
+        this.data.more = true
+        this.data.page = 0
+        this.setData({
+          Albums:res.result.data,
+          empty:false
         })
       },
-      fail: err => {
-        console.error('[云函数] [login] 调用失败', err)
-        wx.navigateTo({
-          url: '../deployFunctions/deployFunctions',
-        })
-      }
     })
   },
 

@@ -77,7 +77,8 @@ page {
     width: 70px;
     border-radius: 5px 0 0 5px;
 }
-.album {
+.album-detail {
+    width: 400rpx;
     margin-left: 15px;
     padding-top: 10px;
 }

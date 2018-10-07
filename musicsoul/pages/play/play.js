@@ -8,7 +8,8 @@ Page({
   data: {
     id:'',
     songdetail:{},
-    pickerAlbums:['+新建','test'],
+    Albums: [],
+    // Albums:['+新建'],
     currentTime: '00:00',
     duration: '00:00',
     progressWidth: 0,
@@ -35,21 +36,27 @@ Page({
     console.log(options)
     console.log('可使用窗口高度' + app.globalData.winHeight)
     console.log('屏幕高度' + app.globalData.screenHeight)
-    
 
-    // wx.cloud.callFunction({
-    //   name: 'searchsong',
-    //   data: {
-    //     id:options.id,
-    //     action:'getdetail'
-    //   },
-    //   complete: res => {
-    //     console.log(res)
-    //     this.setData({
-    //       songdetail:res.result.songs[0]
-    //     })
-    //   },
-    // })
+    wx.cloud.callFunction({
+      name: 'searchsong',
+      data: {
+        id:options.id,
+        action:'getdetail'
+      },
+      complete: res => {
+        console.log(res)
+        //只获取需要的数据
+        let tmp = {}
+        tmp.id = res.result.songs[0].al.id
+        tmp.name = res.result.songs[0].name
+        tmp.author = res.result.songs[0].ar[0].name
+        tmp.picUrl = res.result.songs[0].al.picUrl
+        this.setData({
+          songdetail:tmp
+        })
+      },
+    })
+    this.getAlbums();
   },
 
   /**
@@ -65,6 +72,7 @@ Page({
   onShow: function () {
     const that = this;
 
+    this.getAlbums();
     
 
     wx.getBackgroundAudioPlayerState({
@@ -81,7 +89,7 @@ Page({
         }
       }
     });
-    // this.backgroundPlayer = app.globalData.backgroundPlayer;
+    this.backgroundPlayer = app.globalData.backgroundPlayer;
 
     const currentPlayerId = this.data.id;
     // const currentPlayerId = wx.getStorageSync('currentPlayerId');
@@ -373,31 +381,30 @@ Page({
       delta: 1
     });
   },
-  bindPickerChange: function(event) {
-    console.log('picker发送选择改变，携带值为', this.data.pickerAlbums[event.detail.value])
-
-    // if (!app.globalData.hasUserInfo) {
-    //   console.log("还没有登录呢")
-    // } else if (this.data.pickerAlbums[event.detail.value] === '+新建') {
-    //   wx.navigateTo({
-    //     url: '/pages/create/create',
-    //     success: (result)=>{
-          
-    //     },
-    //     fail: ()=>{},
-    //     complete: ()=>{}
-    //   });
-    // }
-
-    if (this.data.pickerAlbums[event.detail.value] === '+新建') {
+  addsong: function(event) {
+    let that = this
+    if (this.data.Albums[event.detail.value].albumName === '+新建') {
       wx.navigateTo({
         url: '/pages/create/create',
-        success: (result)=>{
-          
-        },
-        fail: ()=>{},
-        complete: ()=>{}
       });
+    } else {
+      wx.cloud.callFunction({
+        name: 'album',
+        data: {
+          action: "addsong",
+          albumId:that.data.Albums[event.detail.value]._id,
+          songdetail:that.data.songdetail
+        },
+        complete: res => {
+          console.log(res)
+          if (res.result.stats.updated === 1) {
+            wx.showToast({
+              title: '添加成功',
+              icon: 'success'
+              })
+          }
+        },
+      })
     }
   },
   onGetUserInfo: function(event) {
@@ -411,25 +418,22 @@ Page({
       app.globalData.userInfo = userInfo
     }
   },
-  // checklogin: function() {
-  //   console.log('还没登录')
-  //   wx.showModal({
-  //     title: '请先登录！',
-  //     // content: '弹窗内容，告知当前状态、信息和解决方法，描述文字尽量控制在三行内',
-  //     confirmText: "登录",
-  //     cancelText: "算了",
-  //     success: function (res) {
-  //       // console.log(res);
-  //       if (res.confirm) {
-  //         console.log('点了去登录');
-  //            wx.navigateTo({
-  //             url: '/pages/index/main?activeIndex=1',
-  //           })
-  //           self.getalbums();
-  //       } else {
-  //         console.log('点了算了')
-  //       }
-  //     }
-  //   });
-  // }
+  getAlbums:function() {
+    let that = this
+    wx.cloud.callFunction({
+      name: 'album',
+      data: {
+        action: "getMyalbum",
+      },
+      complete: res => {
+        res.result.data.unshift({
+          _id: 0,
+          albumName: '+新建'
+        })
+        that.setData({
+          Albums:res.result.data
+        })
+      },
+    })
+  }
 })

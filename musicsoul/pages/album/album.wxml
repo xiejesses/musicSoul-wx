@@ -1,0 +1,37 @@
+<view class="header-container" style="height:{{navHeight}}px"></view>
+<view class="container" style="margin-top:{{navHeight+10}}px">
+    <view class="top-container">
+        <view class="user-profile">
+            <view class="name-pic">
+                <view class="pic"><image src="{{albumdetail.creatorAvatar}}" /></view>
+                <view class="name">{{albumdetail.creator}}</view>
+            </view>
+            <view class="edit"><image src="/images/edit.png" /></view>
+        </view>
+        <view class="albumdetail">
+            <view class="intro">
+                <view class="albumname">{{albumdetail.albumName}}</view>
+                <view class="albumdes">{{albumdetail.albumDes}}</view>
+            </view>
+            <view class="album-pic">
+                <image mode="aspectFill" lazy-load="{{true}}" src="{{albumdetail.albumPic}}" /></view>
+        </view>
+        <view class="user-action">
+            <view class="love"><image src="/images/h_un_love.png" /></view>
+            <view class="share"><image src="/images/share.png" /></view>
+        </view>
+    </view>
+    <view class="bottom-container" style="min-height:{{screenHeight-navHeight-310}}px">
+        <view class="playlist-text">PLAYLIST</view>
+        <view class="songlist-wrap">
+            <view class="songlist" wx:for="{{albumdetail.songs}}" wx:for-item="song" wx:key="songId">
+                <view class="song-pic">
+                    <image src="{{song.songPic}}" /></view>
+                <view class="song-info">
+                    <view class="songname">{{song.songName}}</view>
+                    <view class="songauthor">{{song.songAuthor}}</view>
+                </view>
+            </view>
+        </view>
+    </view>
+</view>

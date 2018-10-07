@@ -33,4 +33,5 @@
     </view>
     </navigator>
   </view>
+  <view><initloading wx:if="{{loadingCenter}}" /></view>
 </view>

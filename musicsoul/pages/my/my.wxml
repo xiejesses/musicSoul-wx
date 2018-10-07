@@ -13,28 +13,31 @@
     </view>
     <view class="album-lists-container">
         <view class="album-lists my-create">
-            <view class="title">我创建的(3)</view>
-            <view class="albumlist">
-                <view><image  class="album-pic" src="http://p1.music.126.net/QRB50I-VcDoR_T3aOXV5UQ==/109951163393595700.jpg" /></view>
-                <view class="album">
-                    <view class="albumname">这是一首简单的歌</view>
-                    <view >1 首</view>
+            <view class="title">我创建的({{Albums.length}})</view>
+            <view class="albumlist" wx:for="{{Albums}}" wx:for-item="album" wx:key="_id">
+            
+            <!-- <navigator url="/pages/album/album?id={{album._id}}" > -->
+            <!-- <view > -->
+                <navigator open-type="navigate" url="/pages/album/album?id={{album._id}}">
+                <view><image  class="album-pic" src="{{album.albumPic}}" /></view></navigator>
+                <navigator open-type="navigate" url="/pages/album/album?id={{album._id}}">
+                <view class="album-detail">
+                    <!-- <view class="albumname">test</view>
+                    <view >1 首</view> -->
+                    <view class="albumname">{{album.albumName}}</view>
+                    <view >{{album.songs.length}} 首</view>
                 </view>
+                <!-- </view> -->
+                </navigator>
+            <!-- </navigator> -->
             </view>
-            <view class="albumlist">
-                <view><image  class="album-pic" src="http://p1.music.126.net/1Wy_tqpQLSdTmoq4wKYWTg==/2533274790578955.jpg" /></view>
+            <!-- <view class="albumlist">
+                <view><image  class="album-pic" src="/images/backgroud.png" /></view>
                 <view class="album">
-                    <view class="albumname">奋斗一生</view>
-                    <view >2 首</view>
+                    <view class="albumname">默认封面</view>
+                    <view >4 首</view>
                 </view>
-            </view>
-            <view class="albumlist">
-                <view><image  class="album-pic" src="http://p1.music.126.net/_FUMc6PuSTlrVDX4LOCpxQ==/6635552674625110.jpg" /></view>
-                <view class="album">
-                    <view class="albumname">Give Me That Love</view>
-                    <view >5 首</view>
-                </view>
-            </view>
+            </view> -->
         </view>
         <!-- <view class="album-lists">
             <text class="text">我收藏的(2)</text>

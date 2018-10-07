@@ -5,13 +5,13 @@
     "pages/my/my",
     "pages/search/search",
     "pages/play/play",
-    "pages/create/create"
+    "pages/create/create",
+    "pages/album/album"
   ],
   "requiredBackgroundModes": [
     "audio"
   ],
   "window": {
-    "backgroundColor": "#fff",
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "知音",
