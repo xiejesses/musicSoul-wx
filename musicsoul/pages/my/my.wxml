@@ -14,22 +14,14 @@
     <view class="album-lists-container">
         <view class="album-lists my-create">
             <view class="title">我创建的({{Albums.length}})</view>
-            <view class="albumlist" wx:for="{{Albums}}" wx:for-item="album" wx:key="_id">
-            
-            <!-- <navigator url="/pages/album/album?id={{album._id}}" > -->
-            <!-- <view > -->
-                <navigator open-type="navigate" url="/pages/album/album?id={{album._id}}">
-                <view><image  class="album-pic" src="{{album.albumPic}}" /></view></navigator>
-                <navigator open-type="navigate" url="/pages/album/album?id={{album._id}}">
+            <view  wx:for="{{Albums}}" wx:for-item="album" wx:key="_id">
+                <navigator class="albumlist" open-type="navigate" url="/pages/album/album?id={{album._id}}">
+                <view><image  class="album-pic" src="{{album.albumPic}}" /></view>
                 <view class="album-detail">
-                    <!-- <view class="albumname">test</view>
-                    <view >1 首</view> -->
                     <view class="albumname">{{album.albumName}}</view>
                     <view >{{album.songs.length}} 首</view>
                 </view>
-                <!-- </view> -->
                 </navigator>
-            <!-- </navigator> -->
             </view>
             <!-- <view class="albumlist">
                 <view><image  class="album-pic" src="/images/backgroud.png" /></view>
@@ -44,8 +36,10 @@
         </view> -->
     </view>
     </view>
-    <login-btn wx:else open-type="getUserInfo" class="" bind:getuserinfo="onGetUserInfo">
-        <image slot="img" class="user-avatar" src="/images/user-unlogin.png" />
-        <!-- <view slot="text">点击头像登录</view> -->
-    </login-btn>
+    <view wx:else>
+        <login-btn open-type="getUserInfo" class="" bind:getuserinfo="onGetUserInfo">
+            <image slot="img" class="user-avatar" src="/images/user-unlogin.png" />
+        </login-btn>
+            <view class="tip">点击头像登录</view>
+    </view>
 </view>

@@ -1,4 +1,8 @@
-<view class="header-container" style="height:{{navHeight}}px"></view>
+<view class="header-container" style="height:{{navHeight}}px">
+    <view class="header-nav" bind:tap="goback">
+        <view><image src="/images/left.png" /></view>
+    </view>
+</view>
 <view class="container" style="margin-top:{{navHeight+10}}px">
     <view class="top-container">
         <view class="user-profile">
@@ -24,13 +28,15 @@
     <view class="bottom-container" style="min-height:{{screenHeight-navHeight-310}}px">
         <view class="playlist-text">PLAYLIST</view>
         <view class="songlist-wrap">
-            <view class="songlist" wx:for="{{albumdetail.songs}}" wx:for-item="song" wx:key="songId">
-                <view class="song-pic">
-                    <image src="{{song.songPic}}" /></view>
-                <view class="song-info">
-                    <view class="songname">{{song.songName}}</view>
-                    <view class="songauthor">{{song.songAuthor}}</view>
-                </view>
+            <view wx:for="{{albumdetail.songs}}" wx:for-item="song" wx:key="songId">
+                <navigator class="songlist"  open-type="navigate" url="/pages/play/play?id={{song.songId}}&title={{song.songName}}">
+                    <view class="song-pic">
+                        <image src="{{song.songPic}}" /></view>
+                    <view class="song-info">
+                        <view class="songname">{{song.songName}}</view>
+                        <view class="songauthor">{{song.songAuthor}}</view>
+                    </view>
+                </navigator>
             </view>
         </view>
     </view>

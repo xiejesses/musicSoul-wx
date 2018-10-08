@@ -10,20 +10,12 @@
  * 
  */
 exports.main = (event, context) => {
-  console.log(event)
-  console.log(context)
 
   // 可执行其他自定义逻辑
   // console.log 的内容可以在云开发云函数调用日志查看
 
-  // return {
-  //   openid: event.userInfo.openId,
-  // }
+  return {
+    openid: event.userInfo.openId,
+  }
 
-  return new Promise((resolve, reject) => {
-    // 在 3 秒后返回结果给调用方（小程序 / 其他云函数）
-    setTimeout(() => {
-      resolve(event.a + event.b)
-    }, 3000)
-  })
 }

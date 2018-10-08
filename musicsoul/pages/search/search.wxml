@@ -1,27 +1,16 @@
-<!--components/search/search-cmp.wxml-->
 <view class="header-container" style="height:{{navHeight}}px"></view>
 <view class="container" style="margin-top:{{navHeight}}px">
   <view class="header">
     <view class="search-container">
       <image class="icon" src="/images/search.png" />
-      <input placeholder-class='in-bar' placeholder='歌曲名' class='bar' bind:confirm="onConfirm" value="{{keyword}}"
-        auto-focus="true" />
+      <input placeholder-class='in-bar' type="text" placeholder='歌曲名' class='bar' bind:confirm="onConfirm" value="{{keyword}}"
+        auto-focus="true" confirm-type="search"/>
       <image bind:tap="onDelete" class="cancel-img" src="/images/cancel.png" />
     </view>
     <view class='cancel' bind:tap="onCancel">取消</view>
   </view>
-  <!-- <view>
-    <view class="songs" v-for="item in songSearchs" :key="item.id">
-      <a :href="songPage+item.id">
-        <li class="each-song">
-          <p>{{item.name}}</p>
-          <p>{{item.artists[0].name}}</p>
-        </li>
-      </a>
-    </view>
-  </view> -->
   <view class="songs-container" wx:for="{{songlists}}" wx:for-item="song" wx:key="id">
-    <navigator open-type="navigate" url="/pages/play/play?id={{song.id}}">
+    <navigator open-type="navigate" url="/pages/play/play?id={{song.id}}&title={{song.name}}">
     <view class="songs">
       <view class="each-song">
         <view >{{song.name}}</view>

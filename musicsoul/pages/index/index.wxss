@@ -69,7 +69,7 @@
   padding: 10px 20px 20px 20px;
 }
 .album-content .album-name {
-  font-size: 23px;
+  font-size: 21px;
   white-space: nowrap;
   width: 500rpx;
   overflow: hidden;
@@ -77,7 +77,7 @@
   
 }
 .album-content .describe {
-  font-size: 16px;
+  font-size: 15px;
   margin-top: 4px;
   /* padding-bottom: 5px; */
   padding-bottom: 5px;
@@ -101,11 +101,6 @@
   background: #f5f5f5;
 }
 
-.loading-center {
-  /* position: absolute;
-  top: 50%;
-  left: 50%; */
-}
 .nomore {
   background: #f5f5f5;
   color: #999999;

@@ -5,7 +5,14 @@
     background: #fff;
     z-index: 99999;
   }
-
+  .header-nav {
+    margin-top: 30px;
+    margin-left: 20px;
+ }
+ .header-nav image {
+     width: 20px;
+     height: 20px;
+ }
 .container {
 
 }
@@ -16,7 +23,6 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    /* border: 1px solid red; */
 }
 .name-pic {
     display: flex;
@@ -54,6 +60,7 @@
 }
 .intro .albumdes {
     font-size: 18px;
+    color:rgb(82, 82, 82)
 }
 
 .album-pic image {
@@ -114,4 +121,17 @@ background: #f6f6f6;
     display: flex;
     flex-direction: column;
     margin-left: 20px;
+    padding-right: 20px;
+    
+}
+.song-info .songname {
+    white-space: nowrap;
+    width: 500rpx;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-size: 18px;
+}
+.song-info .songauthor {
+    color: rgb(82, 82, 82);
+    font-size: 15px;
 }

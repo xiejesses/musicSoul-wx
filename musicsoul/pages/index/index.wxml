@@ -1,4 +1,3 @@
-<!--index.wxml-->
 <view class="header-container" style="height:{{navHeight}}px">
   <view class='box' style="height:{{navHeight/2}}px;margin-top:{{navHeight/3-3}}px" bind:tap="clickSearch">
     <image src="/images/search.png" />
@@ -21,8 +20,7 @@
     </view>
   </view>
 </view>
-  <view class="loading-center"><initloading wx:if="{{loadingCenter}}" /></view>
+  <view ><initloading wx:if="{{loadingCenter}}" /></view>
   <view class="loading"><loadingmore wx:if="{{loading}}" /></view>
   <view class="nomore"><text wx:if="{{empty}}">Oops! no more</text></view>
  
-<!-- </view> -->

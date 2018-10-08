@@ -22,21 +22,6 @@ Page({
     this.setData({
       loadingCenter:true
     })
-    // new Promise((resolve, reject) => {
-    //   wx.cloud.callFunction({
-    //     name: 'login',
-    //     data: {
-    //       a: 1,
-    //       b: 2,
-    //     },
-    //     complete: res => {
-    //       resolve(res)
-    //     },
-    //   })
-    // }).then(res => {
-    //   console.log(res)
-    //   tmp = res;
-    // })
     this.getindexalbums(true)
   },
   /**
@@ -74,11 +59,6 @@ Page({
             empty:true
           })
         }
-        // if (res.result.data.length < 3 ) {
-        //   this.setData({
-        //     empty:true
-        //   })
-        // }
         if (init) {
           this.setData({
             Albums:res.result.data

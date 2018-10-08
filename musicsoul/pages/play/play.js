@@ -7,9 +7,9 @@ Page({
    */
   data: {
     id:'',
+    title:'',
     songdetail:{},
     Albums: [],
-    // Albums:['+新建'],
     currentTime: '00:00',
     duration: '00:00',
     progressWidth: 0,
@@ -29,13 +29,11 @@ Page({
   onLoad: function (options) {
     this.setData({
       id:options.id,
+      title:options.title,
       navHeight: app.globalData.navHeight,
       screenHeight:app.globalData.screenHeight,
       hasUserInfo:app.globalData.hasUserInfo
     })
-    console.log(options)
-    console.log('可使用窗口高度' + app.globalData.winHeight)
-    console.log('屏幕高度' + app.globalData.screenHeight)
 
     wx.cloud.callFunction({
       name: 'searchsong',
@@ -47,7 +45,7 @@ Page({
         console.log(res)
         //只获取需要的数据
         let tmp = {}
-        tmp.id = res.result.songs[0].al.id
+        tmp.id = res.result.songs[0].id
         tmp.name = res.result.songs[0].name
         tmp.author = res.result.songs[0].ar[0].name
         tmp.picUrl = res.result.songs[0].al.picUrl
@@ -57,13 +55,6 @@ Page({
       },
     })
     this.getAlbums();
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
   },
 
   /**
@@ -91,34 +82,14 @@ Page({
     });
     this.backgroundPlayer = app.globalData.backgroundPlayer;
 
-    const currentPlayerId = this.data.id;
-    // const currentPlayerId = wx.getStorageSync('currentPlayerId');
-    // if (currentPlayerId) {
-    //   const currentI = data.songs.findIndex(item => Number(item.id) === Number(currentPlayerId));
-    //   if (currentI > -1) {
-    //     this.setData({
-    //       playerData: data.songs[currentI],
-    //       i: currentI
-    //     });
-    //   }
-    // } else {
-    //   this.setData({
-    //     playerData: data.songs[this.data.i]
-    //   });
-    // }
-    // this.setData({
-    //   playerData: data.songs[this.data.i]
-    // });
+    let currentPlayerId = this.data.id;
 
     // 如果当前有音频
-    if (!this.backgroundPlayer.src || this.backgroundPlayer.src !== this.data.playerData.src) {
-      // 给背景音频赋值
-      this.backgroundPlayer.src = this.data.songSrc + this.data.id;
-      this.backgroundPlayer.title = '心跳';
-      // this.backgroundPlayer.title = this.data.songdetail.name;
-      // this.backgroundPlayer.coverImgUrl = this.data.songdetail.al.picUrl;
-      // wx.setStorageSync('currentPlayerId', this.data.playerData.id);
-    }
+    // if (!this.backgroundPlayer.src || this.backgroundPlayer.src !== this.data.playerData.src) {
+      // if(currentPlayerId !== this.data.id) {
+        this.backgroundPlayer.src = this.data.songSrc + this.data.id;
+        this.backgroundPlayer.title = this.data.title;
+    // }
     this.duration = this.backgroundPlayer.duration * 1000 || 0;
     this.currentTime = this.backgroundPlayer.currentTime * 1000 || 0;
 
@@ -169,23 +140,9 @@ Page({
     });
 
     // 自然播放后，自动切换到下一首
-    // this.backgroundPlayer.onEnded(() => {
-    //   if (that.data.i < Number(data.songs && data.songs.length - 1)) {
-    //     that.setData({
-    //       playerData: data.songs[that.data.i + 1],
-    //       i: that.data.i + 1
-    //     });
-    //     that.backgroundPlayer.src = that.data.playerData.src;
-    //     that.backgroundPlayer.title = that.data.playerData.name;
-    //     that.backgroundPlayer.coverImgUrl = that.data.playerData.image;
-    //     wx.setStorageSync('currentPlayerId', that.data.playerData.id);
-    //   } else {
-    //     const { duration } = this.setProgress(that.duration, 0);
-    //     that.setData({
-    //       duration
-    //     });
-    //   }
-    // });
+    this.backgroundPlayer.onEnded(() => {
+      that.setData({ play_status: false });
+    });
 
     this.backgroundPlayer.onPrev(() => {
       that.prev();
@@ -200,66 +157,6 @@ Page({
         waiting: true
       });
     });
-
-    // this.backgroundPlayer.onError((res) => {
-    //   let msg = '';
-    //   switch (res.errCode) {
-    //     case 10001:
-    //       msg = '系统错误';
-    //       break;
-    //     case 10002:
-    //       msg = '网络错误';
-    //       break;
-    //     case 10003:
-    //       msg = '文件错误';
-    //       break;
-    //     case 10004:
-    //       msg = '格式错误';
-    //       break;
-    //     default:
-    //       msg = '未知错误';
-    //       break;
-    //   }
-    //   toast.toast({
-    //     show: true,
-    //     content: msg
-    //   });
-    //   that.setData({ waiting: true });
-    // });
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
 
   },
 
@@ -332,50 +229,6 @@ Page({
     this.backgroundPlayer.seek(this.currentTime / 1000);
   },
  
-
-  // prev() {
-  //   if (this.data.i === 0) {
-  //     toast.toast({
-  //       show: true,
-  //       content: '已经是第一首'
-  //     });
-  //     return;
-  //   }
-  //   const currentIndex = this.data.i - 1;
-  //   if (data.songs && data.songs[currentIndex]) {
-  //     this.backgroundPlayer.src = data.songs[currentIndex].src;
-  //     this.backgroundPlayer.title = data.songs[currentIndex].name;
-  //     this.backgroundPlayer.coverImgUrl = data.songs[currentIndex].image;
-  //     wx.setStorageSync('currentPlayerId', data.songs[currentIndex].id);
-  //     this.setData({
-  //       playerData: data.songs[currentIndex],
-  //       i: currentIndex
-  //     });
-  //   }
-
-  // },
-
-  // next() {
-  //   if (this.data.i === Number(data.songs && data.songs.length - 1)) {
-  //     toast.toast({
-  //       show: true,
-  //       content: '已经是最后一首'
-  //     });
-  //     return;
-  //   }
-  //   const currentIndex = this.data.i + 1;
-  //   if (data.songs && data.songs[currentIndex]) {
-  //     this.backgroundPlayer.src = data.songs[currentIndex].src;
-  //     this.backgroundPlayer.title = data.songs[currentIndex].name;
-  //     this.backgroundPlayer.coverImgUrl = data.songs[currentIndex].image;
-  //     wx.setStorageSync('currentPlayerId', data.songs[currentIndex].id);
-  //     this.setData({
-  //       playerData: data.songs[currentIndex],
-  //       i: currentIndex
-  //     });
-  //   }
-  // },
-
   goback:function () {
     wx.navigateBack({
       delta: 1

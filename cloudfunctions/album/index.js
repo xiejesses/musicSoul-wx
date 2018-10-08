@@ -1,10 +1,9 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-// const TcbRouter = require('tcb-router');
 
 cloud.init()
 const db = cloud.database({
-  env: 'test-1ff606'
+//   env: 'test-1ff606'
 })
 
 // 云函数入口函数
@@ -12,7 +11,6 @@ exports.main = async (event, context) => {
 
     const size = 3
 
-    // const app = new TcbRouter({ event });
     if (event.action === 'create') {
         try {
             return await db.collection('albums').add({

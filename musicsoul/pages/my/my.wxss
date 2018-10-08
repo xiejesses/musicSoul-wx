@@ -48,7 +48,7 @@ page {
     margin: auto;
     background: #fff;
     border-radius: 15px;
-    min-height: 550px;
+    min-height: 300px;
 }
 .album-lists {
     padding: 0 20px;
@@ -78,10 +78,11 @@ page {
     border-radius: 5px 0 0 5px;
 }
 .album-detail {
-    width: 400rpx;
+    /* width: 400rpx; */
     margin-left: 15px;
     padding-top: 10px;
 }
-.albumname {
-    
+.tip {
+    text-align: center;
+    color: #444;
 }
