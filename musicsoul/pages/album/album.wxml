@@ -21,7 +21,7 @@
                 <image mode="aspectFill" lazy-load="{{true}}" src="{{albumdetail.albumPic}}" /></view>
         </view>
         <view class="user-action">
-            <view class="love"><image src="/images/h_un_love.png" /></view>
+            <view class="love"><image src="/images/h_love.png" /></view>
             <view class="share"><image src="/images/share.png" /></view>
         </view>
     </view>
